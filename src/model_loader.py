@@ -4,8 +4,7 @@ import torch
 
 class ModelLoader:
     """
-    Singleton-style loader for the LLM. 
-    Using 'gpt2' (small) for speed, but 'gpt2-medium' is recommended for better results.
+    Using 'gpt2' (small) for speed.
     """
     
     @staticmethod
