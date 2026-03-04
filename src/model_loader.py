@@ -14,7 +14,6 @@ class ModelLoader:
         tokenizer = GPT2Tokenizer.from_pretrained(model_name)
         model = GPT2LMHeadModel.from_pretrained(model_name)
         
-        # Set to evaluation mode (disables dropout, etc.)
         model.eval()
         
         return model, tokenizer
