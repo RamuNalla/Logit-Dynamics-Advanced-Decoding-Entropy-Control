@@ -17,23 +17,16 @@ class LogitSampler:
         4. Applies Temperature scaling.
         5. Returns Softmax probabilities.
         """
-        # Encode input
-        inputs = self.tokenizer(input_text, return_tensors="pt").to(self.device)
-        
-        # Inference (No Grad for speed)
-        with torch.no_grad():
-            outputs = self.model(**inputs)
-        
-        # Get logits of the last token in the sequence
-        # Shape: (batch_size, seq_len, vocab_size) -> (vocab_size)
-        next_token_logits = outputs.logits[0, -1, :]
-        
-        # Apply Temperature (Avoid division by zero)
-        temperature = max(temperature, 1e-5)
+        inputs = self.tokenizer(input_text, return_tensors="pt").to(self.device)  # Encode input
+        with torch.no_grad():               
+            outputs = self.model(**inputs)      # Inference (No Grad for speed)
+    
+        next_token_logits = outputs.logits[0, -1, :]        # Get logits of the last token in the sequence Shape: (batch_size, seq_len, vocab_size) -> (vocab_size)
+
+        temperature = max(temperature, 1e-5)            # Apply Temperature (Avoid division by zero)
         scaled_logits = next_token_logits / temperature
         
-        # Convert to Probabilities
-        probs = F.softmax(scaled_logits, dim=-1)
+        probs = F.softmax(scaled_logits, dim=-1)           # Convert to probabilities
         
         return probs, scaled_logits
 
