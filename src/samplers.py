@@ -40,25 +40,20 @@ class LogitSampler:
             
         top_k_probs, top_k_indices = torch.topk(probs, k)
         
-        # Create a zero-filled tensor
-        masked_probs = torch.zeros_like(probs)
-        # Scatter the top-k values back into their original positions
-        masked_probs[top_k_indices] = top_k_probs
-        
-        # Renormalize
-        masked_probs = masked_probs / masked_probs.sum()
+        masked_probs = torch.zeros_like(probs)              # Create a zero-filled tensor          
+        masked_probs[top_k_indices] = top_k_probs           # Scatter the top-k values back into their original positions
+        masked_probs = masked_probs / masked_probs.sum()    # Renormalize
         return masked_probs
 
     def apply_top_p(self, probs, p=0.9):
         """
         Nucleus Sampling: Selects smallest set of tokens whose cumulative probability >= p.
         """
-        # Sort probabilities in descending order
-        sorted_probs, sorted_indices = torch.sort(probs, descending=True)
+        
+        sorted_probs, sorted_indices = torch.sort(probs, descending=True)       # Sort probabilities in descending order
         cumulative_probs = torch.cumsum(sorted_probs, dim=-1)
 
-        # Create mask: remove tokens where cumulative prob > p
-        # We shift mask right by 1 to include the token that crossed the threshold
+        # Create mask: remove tokens where cumulative prob > p. We shift mask right by 1 to include the token that crossed the threshold
         sorted_indices_to_remove = cumulative_probs > p
         sorted_indices_to_remove[..., 1:] = sorted_indices_to_remove[..., :-1].clone()
         sorted_indices_to_remove[..., 0] = 0
