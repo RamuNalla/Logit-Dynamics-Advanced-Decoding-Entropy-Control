@@ -47,7 +47,7 @@ class LogitSampler:
 
     def apply_top_p(self, probs, p=0.9):
         """
-        Nucleus Sampling: Selects smallest set of tokens whose cumulative probability >= p.
+        Nucleus Sampling: Selects smallest set of tokens whose cumulative probability >= p
         """
         
         sorted_probs, sorted_indices = torch.sort(probs, descending=True)       # Sort probabilities in descending order
