@@ -64,5 +64,5 @@ class LogitSampler:
         masked_probs[indices_to_remove] = 0.0
 
         # Renormalize
-        masked_probs = masked_probs / masked_probs.sum()
+        masked_probs = masked_probs / masked_probs.sum()            # normalize this after to make the sum to 1
         return masked_probs
