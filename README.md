@@ -16,9 +16,9 @@ A research-grade application for analyzing Large Language Model (LLM) inference 
 
 ## 🚀 Overview
 
-Decoding strategies (like Top-K or Nucleus/Top-P sampling) often act as black boxes in production systems. **Logit-Dynamics** intercepts the forward pass of the Transformer architecture to expose and manipulate the raw logit landscape. 
+Decoding strategies (like Top-K or Nucleus/Top-P sampling) often act as black boxes in production systems. **Logit-Dynamics** intercepts the forward pass of Transformer architecture to expose and manipulate the raw logit landscape. 
 
-It helps understand how models make decisions, calculate uncertainty, and mathematically engineer factual truth into the text generation process.
+It helps understand how models make decisions, calculate uncertainty, and mathematically engineer factual truth into text generation process.
 
 ## ✨ Key Features
 
